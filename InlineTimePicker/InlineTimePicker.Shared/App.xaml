@@ -1,0 +1,20 @@
+﻿<Application
+    x:Class="InlineTimePicker.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converters="using:kahua.host.uno.ui.converters" 
+    xmlns:local="using:InlineTimePicker">
+	
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
+                <!-- Place resources here -->
+            </ResourceDictionary.MergedDictionaries>
+            <converters:NullToBoolConverter x:Key="NullToBoolInverseConverter" TrueWhenNull="True" />
+            <SolidColorBrush x:Key="TextBoxLabelDefaultColorBrush" Color="DarkGray"/>
+            <converters:InlineTimeConverter x:Key="InlineTimeConverter" />
+        </ResourceDictionary>
+    </Application.Resources>
+
+</Application>

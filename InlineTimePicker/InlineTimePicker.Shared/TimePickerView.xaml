@@ -1,0 +1,51 @@
+﻿<UserControl x:Class="kahua.host.uno.control.timepicker.TimePickerView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="using:kahua.host.uno.control.timepicker"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:wasm="http://uno.ui/wasm"
+             xmlns:win="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:Interactions="using:Microsoft.Xaml.Interactions.Core"
+             xmlns:Interactivity="using:Microsoft.Xaml.Interactivity"
+             xmlns:icon="using:kahua.host.uno.common.icon"
+             d:DesignHeight="300"
+             d:DesignWidth="400"
+             x:Name="tp"
+             mc:Ignorable="d wasm">
+    <Grid x:Name="container" VerticalAlignment="Center">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <Grid.Resources>
+            <DataTemplate x:Key="TimePickerHeaderTemplate">
+                <TextBlock Text="{Binding }"
+                           IsHitTestVisible="False"
+                           Foreground="{StaticResource TextBoxLabelDefaultColorBrush}"
+                           TextTrimming="CharacterEllipsis" />
+            </DataTemplate>
+        </Grid.Resources>
+        <StackPanel>
+            <ContentPresenter Grid.Column="1" ContentTemplate="{StaticResource TimePickerHeaderTemplate}" Content="{x:Bind Header}"/>
+            <TextBox x:Name="tb" Text="{x:Bind TimeValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource InlineTimeConverter}}" />
+            <Interactivity:Interaction.Behaviors>
+                <Interactions:DataTriggerBehavior Binding="{Binding ElementName=tp, Path=TimeValue, Converter={StaticResource NullToBoolInverseConverter}}" Value="True">
+                    <Interactions:ChangePropertyAction PropertyName="Foreground"
+                                                       TargetObject="{Binding ElementName=tb}"
+                                                       Value="Red" />
+                </Interactions:DataTriggerBehavior>
+                <Interactions:DataTriggerBehavior Binding="{Binding ElementName=tp, Path=TimeValue, Converter={StaticResource NullToBoolInverseConverter}}" Value="False">
+                    <Interactions:ChangePropertyAction PropertyName="Foreground"
+                                                       TargetObject="{Binding ElementName=tb}"
+                                                       Value="{StaticResource TextBoxLabelDefaultColorBrush}" />
+                </Interactions:DataTriggerBehavior>                
+            </Interactivity:Interaction.Behaviors>            
+        </StackPanel>
+        <Button Grid.Column="1"
+                Content="clear"
+                VerticalAlignment="Center"
+                Click="ClearTimeClicked">
+        </Button>        
+    </Grid>
+</UserControl>
